@@ -63,7 +63,7 @@ rx_rds::rx_rds(double sample_rate)
     f_fxff = gr::filter::freq_xlating_fir_filter_fcf::make(decimation, d_taps2, 57000, d_sample_rate);
 
     f_rrcf = gr::filter::firdes::root_raised_cosine(1, sample_rate/decimation, 2375, 1, 100);
-    d_bpf2 = gr::filter::fir_filter_ccf::make(1, f_rrcf);
+    d_bpf2 = gr::filter::kernel::fir_filter_ccf::make(1, f_rrcf);
 
     gr::digital::constellation_sptr p_c = gr::digital::constellation_bpsk::make()->base();
     d_mpsk = gr::digital::constellation_receiver_cb::make(p_c, 1*M_PI/100.0, -0.06, 0.06);

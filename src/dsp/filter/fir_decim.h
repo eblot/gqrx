@@ -22,7 +22,7 @@
  */
 #pragma once
 
-#include <gnuradio/filter/fir_filter_ccf.h>
+#include <gnuradio/filter/fir_filter.h>
 #include <gnuradio/hier_block2.h>
 
 class fir_decim_cc;
@@ -42,7 +42,7 @@ public:
     ~fir_decim_cc();
 
 private:
-    gr::filter::fir_filter_ccf::sptr        fir1;
-    gr::filter::fir_filter_ccf::sptr        fir2;
-    gr::filter::fir_filter_ccf::sptr        fir3;
+    gr::filter::kernel::fir_filter_ccf::sptr        fir1;
+    gr::filter::kernel::fir_filter_ccf::sptr        fir2;
+    gr::filter::kernel::fir_filter_ccf::sptr        fir3;
 };

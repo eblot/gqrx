@@ -24,7 +24,7 @@
 #include <cstdio>
 #include <vector>
 
-#include <gnuradio/filter/fir_filter_ccf.h>
+#include <gnuradio/filter/fir_filter.h>
 #include <gnuradio/hier_block2.h>
 #include <gnuradio/io_signature.h>
 
@@ -120,11 +120,11 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
             this_stage++;
             taps.assign(stage->kernel, stage->kernel + stage->length);
             if (this_stage == 1)
-                fir1 = gr::filter::fir_filter_ccf::make(stage->ratio, taps);
+                fir1 = gr::filter::kernel::fir_filter_ccf::make(stage->ratio, taps);
             else if (this_stage == 2)
-                fir2 = gr::filter::fir_filter_ccf::make(stage->ratio, taps);
+                fir2 = gr::filter::kernel::fir_filter_ccf::make(stage->ratio, taps);
             else if (this_stage == 3)  // NB: currently max 2 stages
-                fir3 = gr::filter::fir_filter_ccf::make(stage->ratio, taps);
+                fir3 = gr::filter::kernel::fir_filter_ccf::make(stage->ratio, taps);
             else
                 std::cout << "  Too many decimation stages: " << this_stage
                           << std::endl;
@@ -169,7 +169,7 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
         // Stage   Passband        Stopband        Decimation
         // FIR1    0.4500000000    0.5500000000    2
         taps.assign(FIR_2_1_TAPS, FIR_2_1_TAPS + FIR_2_1_LEN);
-        fir1 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir1 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         connect(self(), 0, fir1, 0);
         connect(fir1, 0, self(), 0);
         break;
@@ -179,9 +179,9 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
         // FIR1    0.2250000000    0.7750000000    2
         // FIR2    0.4500000000    0.5500000000    2
         taps.assign(FIR_4_1_TAPS, FIR_4_1_TAPS + FIR_4_1_LEN);
-        fir1 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir1 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         taps.assign(FIR_4_2_TAPS, FIR_4_2_TAPS + FIR_4_2_LEN);
-        fir2 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir2 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         connect(self(), 0, fir1, 0);
         connect(fir1, 0, fir2, 0);
         connect(fir2, 0, self(), 0);
@@ -192,9 +192,9 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
         // FIR1    0.1125000000    0.3875000000    4
         // FIR2    0.4500000000    0.5500000000    2
         taps.assign(FIR_8_1_TAPS, FIR_8_1_TAPS + FIR_8_1_LEN);
-        fir1 = gr::filter::fir_filter_ccf::make(4, taps);
+        fir1 = gr::filter::kernel::fir_filter_ccf::make(4, taps);
         taps.assign(FIR_8_2_TAPS, FIR_8_2_TAPS + FIR_8_2_LEN);
-        fir2 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir2 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         connect(self(), 0, fir1, 0);
         connect(fir1, 0, fir2, 0);
         connect(fir2, 0, self(), 0);
@@ -206,11 +206,11 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
         // FIR2    0.2250000000    0.7750000000    2
         // FIR3    0.4500000000    0.5500000000    2
         taps.assign(FIR_16_1_TAPS, FIR_16_1_TAPS + FIR_16_1_LEN);
-        fir1 = gr::filter::fir_filter_ccf::make(4, taps);
+        fir1 = gr::filter::kernel::fir_filter_ccf::make(4, taps);
         taps.assign(FIR_16_2_TAPS, FIR_16_2_TAPS + FIR_16_2_LEN);
-        fir2 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir2 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         taps.assign(FIR_16_3_TAPS, FIR_16_3_TAPS + FIR_16_3_LEN);
-        fir3 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir3 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         connect(self(), 0, fir1, 0);
         connect(fir1, 0, fir2, 0);
         connect(fir2, 0, fir3, 0);
@@ -223,11 +223,11 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
         // FIR2    0.2250000000    0.7750000000    2
         // FIR3    0.4500000000    0.5500000000    2
         taps.assign(FIR_32_1_TAPS, FIR_32_1_TAPS + FIR_32_1_LEN);
-        fir1 = gr::filter::fir_filter_ccf::make(8, taps);
+        fir1 = gr::filter::kernel::fir_filter_ccf::make(8, taps);
         taps.assign(FIR_32_2_TAPS, FIR_32_2_TAPS + FIR_32_2_LEN);
-        fir2 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir2 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         taps.assign(FIR_32_3_TAPS, FIR_32_3_TAPS + FIR_32_3_LEN);
-        fir3 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir3 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         connect(self(), 0, fir1, 0);
         connect(fir1, 0, fir2, 0);
         connect(fir2, 0, fir3, 0);
@@ -240,11 +240,11 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
         // FIR2    0.1125000000    0.3875000000    4
         // FIR3    0.4500000000    0.5500000000    2
         taps.assign(FIR_64_1_TAPS, FIR_64_1_TAPS + FIR_64_1_LEN);
-        fir1 = gr::filter::fir_filter_ccf::make(8, taps);
+        fir1 = gr::filter::kernel::fir_filter_ccf::make(8, taps);
         taps.assign(FIR_64_2_TAPS, FIR_64_2_TAPS + FIR_64_2_LEN);
-        fir2 = gr::filter::fir_filter_ccf::make(4, taps);
+        fir2 = gr::filter::kernel::fir_filter_ccf::make(4, taps);
         taps.assign(FIR_64_3_TAPS, FIR_64_3_TAPS + FIR_64_3_LEN);
-        fir3 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir3 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         connect(self(), 0, fir1, 0);
         connect(fir1, 0, fir2, 0);
         connect(fir2, 0, fir3, 0);
@@ -257,11 +257,11 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
         // FIR2    0.1125000000    0.3875000000    4
         // FIR3    0.4500000000    0.5500000000    2
         taps.assign(FIR_128_1_TAPS, FIR_128_1_TAPS + FIR_128_1_LEN);
-        fir1 = gr::filter::fir_filter_ccf::make(16, taps);
+        fir1 = gr::filter::kernel::fir_filter_ccf::make(16, taps);
         taps.assign(FIR_128_2_TAPS, FIR_128_2_TAPS + FIR_128_2_LEN);
-        fir2 = gr::filter::fir_filter_ccf::make(4, taps);
+        fir2 = gr::filter::kernel::fir_filter_ccf::make(4, taps);
         taps.assign(FIR_128_3_TAPS, FIR_128_3_TAPS + FIR_128_3_LEN);
-        fir3 = gr::filter::fir_filter_ccf::make(2, taps);
+        fir3 = gr::filter::kernel::fir_filter_ccf::make(2, taps);
         connect(self(), 0, fir1, 0);
         connect(fir1, 0, fir2, 0);
         connect(fir2, 0, fir3, 0);
