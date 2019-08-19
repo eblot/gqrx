@@ -29,6 +29,7 @@
 #include <gnuradio/filter/fir_filter_blk.h>
 #include <gnuradio/analog/pll_refout_cc.h>
 #include <gnuradio/blocks/multiply_const.h>
+#include <gnuradio/blocks/multiply.h>
 #include <gnuradio/blocks/complex_to_imag.h>
 #include <gnuradio/blocks/add_blk.h>
 #include <vector>

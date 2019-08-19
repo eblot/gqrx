@@ -120,11 +120,11 @@ fir_decim_cc::fir_decim_cc(unsigned int decim)
             this_stage++;
             taps.assign(stage->kernel, stage->kernel + stage->length);
             if (this_stage == 1)
-                fir1 = gr::filter::kernel::fir_filter_ccf::make(stage->ratio, taps);
+                fir1 = gr::filter::fir_filter_ccf::make(stage->ratio, taps);
             else if (this_stage == 2)
-                fir2 = gr::filter::kernel::fir_filter_ccf::make(stage->ratio, taps);
+                fir2 = gr::filter::fir_filter_ccf::make(stage->ratio, taps);
             else if (this_stage == 3)  // NB: currently max 2 stages
-                fir3 = gr::filter::kernel::fir_filter_ccf::make(stage->ratio, taps);
+                fir3 = gr::filter::fir_filter_ccf::make(stage->ratio, taps);
             else
                 std::cout << "  Too many decimation stages: " << this_stage
                           << std::endl;
