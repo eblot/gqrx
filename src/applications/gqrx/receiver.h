@@ -25,6 +25,7 @@
 
 #include <gnuradio/analog/sig_source.h>
 #include <gnuradio/blocks/file_sink.h>
+#include <gnuradio/blocks/multiply_const.h>
 #include <gnuradio/blocks/multiply_const_v.h>
 #include <gnuradio/blocks/multiply.h>
 #include <gnuradio/blocks/null_sink.h>

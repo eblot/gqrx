@@ -24,7 +24,7 @@
 #define RX_FILTER_H
 
 #include <gnuradio/hier_block2.h>
-#include <gnuradio/filter/fir_filter.h>
+#include <gnuradio/filter/fir_filter_blk.h>
 #include <gnuradio/filter/freq_xlating_fir_filter.h>
 
 

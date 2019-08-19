@@ -24,7 +24,7 @@
 #define RX_RDS_H
 
 #include <gnuradio/hier_block2.h>
-#include <gnuradio/filter/fir_filter.h>
+#include <gnuradio/filter/fir_filter_blk.h>
 #include <gnuradio/filter/freq_xlating_fir_filter.h>
 #include <gnuradio/digital/constellation_receiver_cb.h>
 #include <gnuradio/blocks/keep_one_in_n.h>
@@ -76,7 +76,7 @@ private:
     std::vector<gr_complex> d_taps;
     std::vector<float> d_taps2;
     gr::filter::fir_filter_ccc::sptr  d_bpf;
-    gr::filter::kernel::fir_filter_ccf::sptr  d_bpf2;
+    gr::filter::fir_filter_ccf::sptr  d_bpf2;
     gr::filter::freq_xlating_fir_filter_fcf::sptr f_fxff;
     gr::filter::freq_xlating_fir_filter_ccf::sptr f_fxff_ccf;
     std::vector<float> f_rrcf;
