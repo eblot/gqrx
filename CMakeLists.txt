@@ -6,8 +6,6 @@ set(${PROJECT_NAME}_MAJOR "2")
 set(${PROJECT_NAME}_MINOR "11")
 set(${PROJECT_NAME}_PATCH "5")
 set(VERSION "${${PROJECT_NAME}_MAJOR}.${${PROJECT_NAME}_MINOR}.${${PROJECT_NAME}_PATCH}")
-##set(VERSION "${${PROJECT_NAME}_MAJOR}.${${PROJECT_NAME}_MINOR}")
-##add_definitions(-DVERSION="${VERSION}")
 
 # development version
 execute_process(
@@ -103,11 +101,12 @@ if(APPLE AND EXISTS /usr/local/opt/qt5)
     list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt5")
 endif()
 
+set (GR_REQUIRED_COMPONENTS runtime analog audio blocks digital filter fft pmt)
+
 # 3rd Party Dependency Stuff
 find_package(Qt5 COMPONENTS Core Network Widgets Svg REQUIRED)
 find_package(Boost COMPONENTS system program_options REQUIRED)
-set(GR_REQUIRED_COMPONENTS RUNTIME ANALOG AUDIO BLOCKS DIGITAL FILTER FFT PMT)
-find_package(Gnuradio REQUIRED 3.8)
+find_package(Gnuradio "3.8" REQUIRED COMPONENTS ${GR_REQUIRED_COMPONENTS})
 find_package(Gnuradio-osmosdr REQUIRED)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -194,15 +193,16 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
     ${Boost_INCLUDE_DIRS}
-    ${GNURADIO_RUNTIME_INCLUDE_DIRS}
     ${GNURADIO_OSMOSDR_INCLUDE_DIRS}
 )
 
 link_directories(
     ${Boost_LIBRARY_DIRS}
-    ${GNURADIO_RUNTIME_LIBRARY_DIRS}
 )
 
+foreach (comp ${GR_REQUIRED_COMPONENTS})
+  LIST(APPEND GNURADIO_ALL_LIBRARIES gnuradio::gnuradio-${comp})
+endforeach ()
 
 # Add subdirectories
 add_subdirectory(src)
